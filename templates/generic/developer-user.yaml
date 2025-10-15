@@ -1,0 +1,58 @@
+{{- if .Values.threeScaleDeveloperUser }}
+
+{{- range $threeScaleDeveloperUserInstance := .Values.threeScaleDeveloperUser.instance }}
+
+---
+apiVersion: capabilities.3scale.net/v1beta1
+kind: DeveloperUser
+{{- if $threeScaleDeveloperUserInstance.metadata }}
+metadata:
+  {{- toYaml $threeScaleDeveloperUserInstance.metadata | nindent 2 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    insecure_skip_verify: "true"
+{{- end }}
+
+{{- if $threeScaleDeveloperUserInstance.spec }}
+spec:
+{{- if $threeScaleDeveloperUserInstance.extraSpec }}
+{{- if $threeScaleDeveloperUserInstance.extraSpec.createPasswordSealedSecret }}
+{{- if $threeScaleDeveloperUserInstance.extraSpec.createPasswordSealedSecret.encryptedPassword }}
+  passwordCredentialsRef:
+    name: {{ $threeScaleDeveloperUserInstance.metadata.name }}
+{{- end }}
+{{- end }}
+{{- end }}
+  {{- toYaml $threeScaleDeveloperUserInstance.spec | nindent 2 }}
+{{- end }}
+---
+{{- if $threeScaleDeveloperUserInstance.extraSpec }}
+{{- if $threeScaleDeveloperUserInstance.extraSpec.createPasswordSealedSecret }}
+{{- if $threeScaleDeveloperUserInstance.extraSpec.createPasswordSealedSecret.encryptedPassword }}
+
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+{{- if $threeScaleDeveloperUserInstance.metadata.name }}
+  name: {{ $threeScaleDeveloperUserInstance.metadata.name }}
+{{- end }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  encryptedData:
+    password: {{ $threeScaleDeveloperUserInstance.extraSpec.createPasswordSealedSecret.encryptedPassword }}
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
+{{- if $threeScaleDeveloperUserInstance.metadata.name }}
+      name: {{ $threeScaleDeveloperUserInstance.metadata.name }}
+{{- end }}
+
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- end }}
+
+{{- end }}

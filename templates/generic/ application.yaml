@@ -1,0 +1,23 @@
+{{- if .Values.threeScaleApplication }}
+
+{{- range $threeScaleApplicationInstance := .Values.threeScaleApplication.instance }}
+
+---
+apiVersion: capabilities.3scale.net/v1beta1
+kind: Application
+{{- if $threeScaleApplicationInstance.metadata }}
+metadata:
+  {{- toYaml $threeScaleApplicationInstance.metadata | nindent 2 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    insecure_skip_verify: "true"
+{{- end }}
+
+{{- if $threeScaleApplicationInstance.spec }}
+spec:
+  {{- toYaml $threeScaleApplicationInstance.spec | nindent 2 }}
+{{- end }}
+
+{{- end }}
+
+{{- end }}

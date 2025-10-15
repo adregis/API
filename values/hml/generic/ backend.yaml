@@ -1,0 +1,13 @@
+threeScaleBackend:
+  instance:
+    - metadata:
+        name: example-backend-1
+      spec:
+        name: example-backend-1
+        systemName: example-backend-1
+        privateBaseURL: 'https://echo-api.3scale.net/example-1'
+        metrics:
+          hits:
+            description: "Number of API hits"
+            friendlyName: Hits
+            unit: hit

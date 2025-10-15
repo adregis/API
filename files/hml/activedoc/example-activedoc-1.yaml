@@ -1,0 +1,12 @@
+openapi: "3.0.2"
+info:
+  title: "some title 123"
+  description: "some description"
+  version: "1.0.0"
+paths:
+  /pet:
+    get:
+      operationId: "getPet"
+      responses:
+        405:
+          description: "invalid input"

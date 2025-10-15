@@ -1,0 +1,50 @@
+{{- if .Values.threeScaleProduct }}
+
+{{- range $threeScaleProductInstance := .Values.threeScaleProduct.instance }}
+
+---
+apiVersion: capabilities.3scale.net/v1beta1
+kind: Product
+{{- if $threeScaleProductInstance.metadata }}
+metadata:
+  {{- toYaml $threeScaleProductInstance.metadata | nindent 2 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    insecure_skip_verify: "true"
+{{- end }}
+
+{{- if $threeScaleProductInstance.spec }}
+spec:
+  {{- toYaml $threeScaleProductInstance.spec | nindent 2 }}
+{{- end }}
+---
+{{- if $threeScaleProductInstance.extraSpec }}
+{{- if $threeScaleProductInstance.extraSpec.createIssuerEndpointSealedSecret }}
+{{- if $threeScaleProductInstance.extraSpec.createIssuerEndpointSealedSecret.encryptedIssuerEndpoint }}
+
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+{{- if $threeScaleProductInstance.metadata.name }}
+  name: {{ $threeScaleProductInstance.metadata.name }}
+{{- end }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  encryptedData:
+    issuerEndpoint: {{ $threeScaleProductInstance.extraSpec.createIssuerEndpointSealedSecret.encryptedIssuerEndpoint }}
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
+{{- if $threeScaleProductInstance.metadata.name }}
+      name: {{ $threeScaleProductInstance.metadata.name }}
+{{- end }}
+
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- end }}
+
+{{- end }}

@@ -1,0 +1,11 @@
+threeScaleActiveDoc:
+  instance:
+    - metadata:
+        name: example-activedoc-1
+      spec:
+        name: example-activedoc-1
+        description: "An example of a ActiveDoc provided by 3scale CR."
+        productSystemName: example-product-1
+      extraSpec:
+        openAPIDocument:
+          filePath: "files/hml/activedoc/example-activedoc-1.yaml"

@@ -1,0 +1,51 @@
+threeScaleProduct:
+  instance:
+    - metadata:
+        name: example-product-1
+#      extraSpec:
+        # O SealedSecret gerado a seguir terá o mesmo nome definido em metadata.name. Portanto, certifique-se de preencher
+        # o campo spec.deployment.apicastHosted.authentication.oidc.issuerEndpointRef.name com o mesmo valor.
+#        createIssuerEndpointSealedSecret:
+#          encryptedIssuerEndpoint: AgBgade6j6905rwsK5317q1CBZ7gixdAZjD9B9/wNsj5WLFFkZ6wSio6zImcCgT2kldOfFoB/cjkNQAdT1FUm/dZxSB602q0GjzlVTkOAw6QfC7cG105JphADX3DolZucysgylxwNmV4IKg/MObotXRKgKklvlGneLZPkWOKSo+3B2ViRJHjWl9gAIyYw4LzEKoojlD5ws0YtVHrpVETN49HeMRsoB7bfDK7d9mbCOufTzgbJG2A0FzUyo0+e/iQk/0jHZ6r2JTyny6egFkSlgWvyyYJ3Cqq7vGsRMJUkWLzx2O6iGX/i6l1xkUrg34knWWCMAFDzsQJT6t5VLfRpzTxAULWxfb7M+8XVshwQXS73iAdtrUYY+u63E44h7kGbZFxqUEAiVKnhcyCCkPWblikaSVdnygC841d11ZBnKh84PPhh/20I6DBoIsfnDox5NA1rgeis+0/mt+7bMM/tIfkQe6233Dh/kuVyOwscYrQLConGcQ1XM8rNrl+YNm/IvHmSuxJ6U/mlgWRSuJsr2FZITvFe5UuVZ4Eul1qd27w2x9c6AQJBFicTFi6wKKXT3VwBm51q3zmecDoCNhvYPbUniPPEof8lL3vvXtv8yIBZylGz5Dl1XLgEZDM3Raa0igh973IIzBRwqwUhwEss1FOrsIWHizzJiolsUhFVYPVmElFjW20rokOl8uaXVTJTSYdErTByn9QXZgfdGkNEKz2Od4yuTPbJSeT4K8ZuyJfXXD7HxX2WHP5wfqq2E/55fzq4cixTLiDkCJWmnkLUE+Usl9T7z/2CsNVWFzHEMZajHQ8tzkhUj8yHULc0OHFxP+gYqSXuzxgshDRGIFz+/uF66rH9QeumM8C5EGgzSpHhhzKJHaysVUV
+      spec:
+        name: example-product-1
+        systemName: example-product-1
+        backendUsages:
+          example-backend-1:
+            path: /example-backend-1
+        applicationPlans:
+          example-application-plan-1:
+            name: example-application-plan-1
+        metrics:
+          hits:
+            description: Number of API hits
+            friendlyName: Hits
+            unit: hit
+        mappingRules:
+          - httpMethod: GET
+            increment: 1
+            metricMethodRef: hits
+            pattern: /
+          - httpMethod: POST
+            increment: 1
+            metricMethodRef: hits
+            pattern: /
+          - httpMethod: PUT
+            increment: 1
+            metricMethodRef: hits
+            pattern: /
+        deployment:
+          apicastHosted:
+            authentication:
+              oidc:
+                credentials: headers
+                authenticationFlow:
+                  directAccessGrantsEnabled: true
+                  implicitFlowEnabled: false
+                  serviceAccountsEnabled: true
+                  standardFlowEnabled: true
+                issuerEndpointRef:
+                  name: example-product-1
+                issuerType: keycloak
+                jwtClaimWithClientID: azp
+                jwtClaimWithClientIDType: plain

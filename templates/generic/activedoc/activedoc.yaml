@@ -1,0 +1,43 @@
+{{- if .Values.threeScaleActiveDoc }}
+
+{{- range $threeScaleActiveDocInstance := .Values.threeScaleActiveDoc.instance }}
+
+---
+apiVersion: capabilities.3scale.net/v1beta1
+kind: ActiveDoc
+{{- if $threeScaleActiveDocInstance.metadata }}
+metadata:
+  {{- toYaml $threeScaleActiveDocInstance.metadata | nindent 2 }}
+  annotations:
+    insecure_skip_verify: "true"
+    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-options: Force=true,Replace=true
+{{- if $threeScaleActiveDocInstance.extraSpec }}
+{{- if $threeScaleActiveDocInstance.extraSpec.openAPIDocument }}
+{{- if $threeScaleActiveDocInstance.extraSpec.openAPIDocument.filePath }}
+    openAPIDocument/sha1sum: {{ ($.Files.Get $threeScaleActiveDocInstance.extraSpec.openAPIDocument.filePath) | sha1sum }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- end }}
+
+{{- if $threeScaleActiveDocInstance.spec }}
+spec:
+  {{- toYaml $threeScaleActiveDocInstance.spec | nindent 2 }}
+
+{{- if $threeScaleActiveDocInstance.extraSpec }}
+{{- if $threeScaleActiveDocInstance.extraSpec.openAPIDocument }}
+{{- if $threeScaleActiveDocInstance.extraSpec.openAPIDocument.filePath }}
+  activeDocOpenAPIRef:
+    secretRef:
+      name: activedoc-{{ $threeScaleActiveDocInstance.metadata.name }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- end }}
+
+{{- end }}
+
+{{- end }}

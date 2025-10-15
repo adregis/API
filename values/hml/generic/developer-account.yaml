@@ -1,0 +1,6 @@
+threeScaleDeveloperAccount:
+  instance:
+    - metadata:
+        name: example-developer-account-1
+      spec:
+        orgName: example-org-1

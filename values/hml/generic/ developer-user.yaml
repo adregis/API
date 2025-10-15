@@ -1,0 +1,16 @@
+threeScaleDeveloperUser:
+  instance:
+    - metadata:
+        name: example-developer-user-1
+      spec:
+        username: example-developer-user-1
+        email: example-developer-user-1@example.com
+        role: admin
+        developerAccountRef:
+          name: example-developer-account-1
+        passwordCredentialsRef:
+          name: myusername02
+
+#      extraSpec:
+#        createPasswordSealedSecret:
+#          encryptedPassword: AgDAJa+dQUnPJc5TiyBq47d7z8ohWuyCkcxmpZSjdSM5k8jhYluKzsZesuTRwRLWLLrycBqEGnY6j8ucEjMnY5+XVyeTO86rtvLODeQhoiBvZAw1MSIhsITgVM1T0zLoZw6/b0h28FH1zIqn7+3vrpTpT+dL9zOG7WUqZ7W/B4/jmAn4jkZxt1P852bLQ6GwRQkAr24ideJ8NLnD1mFcZMko4hjUUsiPMkc5mhcVUhQt7tIkSNgBBhVXM+4lXi4oKANrrNzRDOgnPptXN1OVvd1S4fykq4B+jC/C5luYX0irSstj1nFGg/mI16q6/3MmhHDvdZWospYO+gN7PDkiOTCJoIiLLwdIWj539rWPEGvPkOJzVt9MEaYPrs8g76lUk52/uJVCrylZoMAmPAgTcMT7XV/gnWBqPPnMcTmk4W37Ih9DKuz0DmDCDSiZtw1JRIKh2FzP9SKUQ+HPSqjPMm0cw+RjkteZ1aizWgVQSx0OaPxlIPLJwY09NbKApN6CosxEJiTm6REQkeuLBBvSqj1/6OL074txhiR3/2MacMYOmO0nsaO98E+w72m/ASnN43MJebvqdDlUEHSXSXNAWl9e3l67VKKe9n1+CyqibcAYtMEWj9gzL2gCMElnhcxYMCgxWS6eszc3dMnAzgH38mleA/b8drTFFYMpt+rRjFJz5jTFQHkkAjw8GvdKx/t4T+r6dQdlamefE1Y0s+kYm/6ACMGg5g==

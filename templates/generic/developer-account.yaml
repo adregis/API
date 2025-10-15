@@ -1,0 +1,23 @@
+{{- if .Values.threeScaleDeveloperAccount }}
+
+{{- range $threeScaleDeveloperAccountInstance := .Values.threeScaleDeveloperAccount.instance }}
+
+---
+apiVersion: capabilities.3scale.net/v1beta1
+kind: DeveloperAccount
+{{- if $threeScaleDeveloperAccountInstance.metadata }}
+metadata:
+  {{- toYaml $threeScaleDeveloperAccountInstance.metadata | nindent 2 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    insecure_skip_verify: "true"
+{{- end }}
+
+{{- if $threeScaleDeveloperAccountInstance.spec }}
+spec:
+  {{- toYaml $threeScaleDeveloperAccountInstance.spec | nindent 2 }}
+{{- end }}
+
+{{- end }}
+
+{{- end }}

@@ -1,0 +1,12 @@
+threeScaleApplication:
+  instance:
+    - metadata:
+        name: example-application-1
+      spec:
+        name: example-application-1
+        description: "This is just an example Application."
+        applicationPlanName: example-application-plan-1
+        productCR:
+          name: example-product-1
+        accountCR:
+          name: example-developer-account-1

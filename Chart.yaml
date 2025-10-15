@@ -1,0 +1,8 @@
+apiVersion: v2
+name: 3scale-gitops
+description: Helm Chart to 3scale GitOps
+type: application
+version: 1.0.0
+maintainers:
+  - name: Adriano Regis
+    email: adregis@gmail.com
